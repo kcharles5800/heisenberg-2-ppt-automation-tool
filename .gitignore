@@ -224,3 +224,5 @@ __pycache__/
 .venv/
 .vscode/
 make_ico.py
+
+*.exe
