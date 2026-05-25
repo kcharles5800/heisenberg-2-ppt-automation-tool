@@ -40,7 +40,7 @@ This tool is currently in ***Beta***. Please report any issues in the "Issues" t
 
 
 > ## How to Install
-> 1. Download the latest installer from the Releases page.
+> 1. Download the latest installer from the [Releases](https://github.com/kcharles5800/heisenberg-2-ppt-automation-tool/releases/tag/v2.0.1(beta)) page.
 >
 > 2. Run the ***heisenberg-2.0-setup.exe*** file.
 >
