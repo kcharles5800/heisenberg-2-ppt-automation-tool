@@ -49,4 +49,4 @@ This tool is currently in ***Beta***. Please report any issues in the "Issues" t
 ---
 
 #### Developer: kcharles | [GitHub Profile](https://github.com/kcharles5800)
-Documentation: V1.0.2 // Build 012
+`Documentation: V1.0.2 // Build 012`
