@@ -216,3 +216,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+build/
+dist/
+__pycache__/
+*.pyc
+*.spec
+.venv/
+.vscode/
+make_ico.py

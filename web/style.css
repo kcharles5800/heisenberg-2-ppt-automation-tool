@@ -1,0 +1,469 @@
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('Assets/fonts/JetBrainsMono-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* --- 1. Base Framework Reset & Background Horizon --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0E0E0F;                       /* The signature dark canvas space */
+    font-family: 'JetBrains Mono', monospace;
+    color: #929294;
+    display: flex;
+    justify-content: center;                         /* Keeps the app perfectly centered horizontally if stretched */
+    align-items: center;                             /* Keeps the app perfectly centered vertically if stretched */
+    min-height: 100vh;
+    width: 100vw;
+    overflow: hidden;                                /* Hides ugly browser scrollbar rails completely */
+    user-select: none;
+}
+
+/* Master application shell hard-locks your layout grid proportions */
+.app-container {
+    width: 840px;                                   /* Fixed unit hard width matching your layout scale */
+    height: 720px;                                  /* Fixed unit hard height matching your layout scale */
+    min-width: 840px;
+    min-height: 720px;
+    max-width: 840px;
+    max-height: 720px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    background-color: #121414;                       /* Locks background blending seamlessness */
+}
+
+/* --- 2. Top Navigation Row --- */
+.top-nav {
+    background-color: #121414;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 20px;                           /* Creates perfect breathing space above the line */
+    border-bottom: 1px solid #1C1C1E;
+    padding: 20px 40px 20px 40px;                   /* Your exact matching card border stroke color! */
+}
+
+.nav-logo {
+    color: #F15A42;                                  /* The slight coral-red tint for the upper corner logo */
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.nav-icons {
+    display: flex;
+    gap: 15px;
+    color: #929294;
+    font-size: 16px;
+}
+
+/* --- 3. Main Center Header Block --- */
+.main-header {
+    
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.main-title {
+    color: #E2E2E2;                                  /* Off-white, bright text for stark contrast */
+    font-size: 42px;                                 /* Blown up size to match mockup proportions */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.5px;
+    margin-bottom: 15px;
+}
+
+.instruction {
+    font-size: 14px;
+    color: #555557;                                  /* Low contrast ash-gray for instructions */
+    letter-spacing: 0.5px;
+}
+
+/* --- 4. The Source Card Panel Box --- */
+.source-card {
+    background-color: #121214;                       /* Slightly lighter dark box matching mockup */
+    border: 1px solid #1C1C1E;                       /* Hard pixel accent border stroke */
+    border-radius: 6px;
+    padding: 35px;
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;                                  /* Centers the panel block horizontally */
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.card-header {
+    color: #555557;                                  /* Muted gray label tracking */
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-align: center;
+}
+
+/* --- 5. Inputs and Interactive Fields --- */
+#songNameInput {
+    width: 100%;
+    height: 48px;
+    background-color: #161618;                       /* Inward text field background contrast */
+    border: 1px solid #262628;                       /* Thin internal card guide lines */
+    border-radius: 4px;
+    padding: 0 16px;
+    color: #FFFFFF;
+    font-family: 'Consolas', monospace;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+#songNameInput::placeholder {
+    color: #3C3C3E;                                  /* Hidden dark placeholder tone */
+}
+
+/* --- 6. The Masterclass Gradient Action Toggle --- */
+#generateBtn {
+    width: 100%;
+    height: 48px;
+    background: linear-gradient(90deg, #991B1B 0%, #EF4444 100%); /* Flawless vivid red/coral gradient sweep */
+    border: none;
+    border-radius: 4px;
+    color: #FFFFFF;
+    font-family: 'Consolas', monospace;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+#generateBtn:hover {
+    opacity: 0.9;
+}
+
+.icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.1s ease, opacity 0.2s ease;
+}
+
+.icon-btn:hover {
+    opacity: 0.8;
+}
+
+.icon-btn:active {
+    transform: scale(0.95);                         /* Subtle snap-down physical feedback when clicked */
+}
+
+/* --- 7. Status Telemetry & Pulse Animation --- */
+#statusLabel {
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Ensures the text and dot sit perfectly dead center */
+    gap: 8px;
+    text-align: center;
+}
+
+.status-idle { color: #A37F7F; }                     /* Muted offline idle tracker status color */
+.status-processing { color: #3B82F6; }
+.status-success { color: #10B981; }
+.status-warning { color: #F59E0B; }
+.status-error { color: #EF4444; }
+
+.status-idle::before {
+    padding-bottom: 2px;
+    content: "●";
+    color: #EF4444; /* Vivid red for the standalone indicator dot */
+    font-size: 14px;
+    animation: heartbeat 2.2s infinite ease-in-out; /* The continuous loop parameters */
+}
+
+/* --- The Pulse Transition Engine --- */
+@keyframes heartbeat {
+    0% {
+        opacity: 0.3;
+        transform: scale(0.95);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 0.3;
+        transform: scale(0.95);
+    }
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.copyright-tag {
+    background-color: #0C0F0F;
+    font-size: 10px;
+    color: #3C3C3E;                                  /* Deep floor layout alignment color */
+    letter-spacing: 1px;
+    padding: 20px;
+}
+
+/* --- 8. Settings Modal Canvas & Layout Overrides --- */
+/* Container Backdrop Mask */
+.modal-backdrop {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex; /* Verify there is NO !important right here */
+    align-items: center; justify-content: center;
+    z-index: 9999; backdrop-filter: blur(4px);
+}
+
+/* Core Settings Wrapper matching your canvas dimension specifications */
+.settings-container {
+    display: flex; width: 720px; height: 420px;
+    background-color: #111111; border: 1px solid #222222;
+    border-radius: 6px; overflow: hidden;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* Left Navigation Sidebar Layout */
+.settings-sidebar {
+    width: 220px; background-color: #0a0a0a;
+    border-right: 1px solid #1a1a1a; padding: 24px 0;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11px; font-weight: 800; letter-spacing: 1.5px;
+    color: #555555; padding: 0 24px 20px 24px; border-bottom: 1px solid #141414;
+}
+
+.sidebar-header-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+.sidebar-menu { list-style: none; padding: 12px 0; margin: 0; }
+
+.menu-item {
+    padding: 14px 24px; font-size: 12px; font-weight: 700;
+    letter-spacing: 1px; color: #888888; cursor: pointer; 
+    display: flex; align-items: center; gap: 12px;
+}
+
+.menu-item-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    opacity: 0.5; /* Mutes unselected SVG vector intensities naturally */
+    transition: opacity 0.2s ease, filter 0.2s ease;
+}
+
+.menu-item:hover { 
+    color: #ffffff; background-color: #121212; 
+}
+
+.menu-item:hover .menu-item-icon {
+    opacity: 0.85;
+}
+
+.menu-item.active {
+    color: #ffffff; 
+    background: linear-gradient(90deg, #b32424 0%, #1c0505 100%);
+    border-left: 3px solid #b32424;
+}
+
+.menu-item.active .menu-item-icon {
+    opacity: 1;
+    filter: brightness(1.2); /* Enhances selected tab icon vector sharpness */
+}
+
+/* Ensure the content area has space and visibility */
+.settings-main-content {
+    flex: 1;
+    padding: 40px;
+    background-color: #1a1a1a; /* Ensure this matches your dark theme */
+    color: #ffffff;
+    overflow-y: auto;
+}
+
+.config-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #F15A42; /* Use your brand accent color */
+}
+
+.config-subtitle {
+    margin-bottom: 30px;
+    color: #a0a0a0;
+}
+
+/* Right Section Main Block Area Layout */
+.settings-main-content { flex: 1; padding: 40px; display: flex; flex-direction: column; }
+.config-title { font-size: 26px; font-weight: 400; letter-spacing: 0.5px; margin: 0 0 8px 0; color: #E2E2E2; }
+.config-subtitle { font-size: 14px; color: #a59c99; margin: 0 0 32px 0; line-height: 1.4; }
+
+/* Component Interactive Storage Box elements */
+.storage-card-box {
+    background-color: #151515; border: 1px solid #222222;
+    padding: 24px; border-radius: 4px; margin-bottom: auto;
+}
+.input-field-label {
+    display: block; font-size: 11px; font-weight: 700;
+    letter-spacing: 1px; color: #e05343; margin-bottom: 12px;
+}
+.path-input-row { display: flex; gap: 12px; }
+#modalPathInput {
+    flex: 1; background-color: #222222; border: 1px solid #333333;
+    padding: 12px 16px; border-radius: 4px; color: #ffffff;
+    font-family: monospace; font-size: 13px; outline: none;
+}
+
+.btn-browse-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #2a2a2a; border: 1px solid #3a3a3a;
+    color: #ffffff; padding: 0 20px; border-radius: 4px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.5px; cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+}
+.btn-browse-action:hover { background-color: #353535; }
+
+.btn-browse-icon {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+}
+
+/* Control Action Row Elements */
+.settings-actions-footer { display: flex; justify-content: flex-end; align-items: center; gap: 24px; }
+.btn-cancel-link {
+    background: none; border: none; color: #888888;
+    font-size: 12px; font-weight: 700; letter-spacing: 1px; cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+}
+.btn-cancel-link:hover { color: #ffffff; }
+.btn-save-submit {
+    background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+    border: none; color: #ffffff; padding: 14px 32px; border-radius: 4px;
+    font-size: 12px; font-weight: 700; letter-spacing: 1px; cursor: pointer;
+    box-shadow: 0 4px 12px rgba(183, 28, 28, 0.3);
+    font-family: 'JetBrains Mono', monospace;
+}
+.btn-save-submit:hover { opacity: 0.95; box-shadow: 0 4px 16px rgba(183, 28, 28, 0.5); }
+
+
+/* About Modal specific styling */
+.about-modal-backdrop {
+    font-family: 'JetBrains Mono', monospace;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.about-modal-container {
+    font-family: 'JetBrains Mono', monospace;
+    background: #121414;
+    border: 2px solid #262828;
+    padding: 30px;
+    width: 600px; /* Increased width to match image */
+    border-radius: 8px;
+    color: #c9c9c9;
+    font-family: 'Segoe UI', monospace; /* Monospace feels right for 'documentation' style */
+    position: relative;
+}
+
+.about-title {
+    font-family: 'JetBrains Mono', monospace;
+    color: #FFB4AA;
+    font-size: 18px;
+    letter-spacing: 2px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    border-left: 3px solid #FF5545;
+}
+
+.about-subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #AD8883;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+    padding-left: 15px;
+    border-left: 3px solid #FF5545;
+}
+
+.about-body {
+    color: #E7BDB7;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.8;
+    font-size: 14px;
+    
+}
+
+.about-link {
+    font-family: 'JetBrains Mono', monospace;
+    color: #FF5545;
+    text-decoration: none;
+    margin-top: 30px;
+    display: block;
+    word-break: break-all;
+}
+
+.close-link {
+    font-family: 'JetBrains Mono', monospace;
+    background: none;
+    border: none;
+    color: #444;
+    cursor: pointer;
+    margin-top: 40px;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    transition: color 0.3s;
+}
+
+.about-link-title {
+    color : #E2E2E2;
+    text-decoration: none;
+}
+
+.close-link:hover { color: #888; }
+
+.hello {
+    font-family: 'JetBrains Mono', monospace;
+    color : #E2E2E2;
+    font-size: 18px;
+    padding-bottom: 20px;
+}
+
+.card-container{
+    background-color: #1A1C1C;
+    padding: 20px;
+    border-radius: 4px;
+    border: solid, 2px,  #262828;
+    box-shadow: 0 0 20px 0 rgba(255, 85, 69, 0.15);
+}

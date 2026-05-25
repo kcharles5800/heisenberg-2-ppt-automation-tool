@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heisenberg 2.0 (beta)</title>
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="Assets/icon_small.png">
+    <link rel="icon" type="image/png" sizes="256x256" href="Assets/Icon_master.png">
+    <link rel="apple-touch-icon" href="Assets/icon_master.png">
+
+    <script type="text/javascript" src="qrc:///qtwebchannel/qwebchannel.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        
+        <nav class="top-nav">
+            <span class="nav-logo">HEISENBERG 2.0 (BETA)</span>
+            <div class="nav-icons">
+                <span class="icon-btn" onclick="toggleAboutModal(true)" style="cursor: pointer;" title="About Us">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="4" width="20" height="16" rx="2" stroke="#F15A42" stroke-width="2"/>
+                        <path d="M6 9L9 12L6 15" stroke="#F15A42" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <line x1="11" y1="15" x2="17" y2="15" stroke="#F15A42" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                
+                <span class="icon-btn" onclick="openSettingsPanel()" style="cursor: pointer;" title="Open Settings">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="3" stroke="#F15A42" stroke-width="2"/>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="#F15A42" stroke-width="2" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+            </div>
+        </nav>
+
+        <header class="main-header">
+            <h1 class="main-title">Song Lyrics Presentation Generator</h1>
+            <p class="instruction"></p>
+        </header>
+
+        <section class="source-card">
+            <div class="card-header">ENTER SONG NAME OR LYRICS URL (FROM TAMILCHRISTIANSONGS.COM):</div>
+            <div class="input-wrapper">
+                <input type="text" id="songNameInput" placeholder="e.g., Deiveega Koodarame En Devanin" autocomplete="off">
+            </div>
+            <button id="generateBtn" onclick="triggerAutomation()">GENERATE</button>
+            <div id="statusLabel" class="status-idle">PROCESSING ENGINE ONLINE</div>
+        </section>
+
+        <footer>
+            <div class="copyright-tag">POWERED BY HEISENBERG 2.0 • COPYRIGHTS PENDING</div>
+        </footer>
+    </div>
+
+    <div id="settingsModalOverlay" class="modal-backdrop" style="display: none;">
+        <div class="settings-container">
+            <div class="settings-sidebar">
+                <div class="sidebar-header">
+                    <img src="Assets/Settings.svg" class="sidebar-header-icon" alt="Settings Icon"> 
+                    <span>SETTINGS</span>
+                </div>
+                <ul class="sidebar-menu">
+                    <!-- <li class="menu-item"><img src="Assets/General.svg" class="menu-item-icon"> <span>GENERAL</span></li> -->
+                    <!-- <li class="menu-item"><img src="Assets/Appearance.svg" class="menu-item-icon"> <span>PPT APPEARANCE</span></li> -->
+                    <li class="menu-item active"><img src="Assets/Storage.svg" class="menu-item-icon"> <span>STORAGE</span></li>
+                    <!-- <li class="menu-item"><img src="Assets/Advance.svg" class="menu-item-icon"> <span>ADVANCED</span></li> -->
+                </ul>
+            </div>
+            <div class="settings-main-content">
+                <h2 class="config-title">Storage Configuration</h2>
+                <p class="config-subtitle">Manage where your generated powerpoint files save.</p>
+                <div class="storage-card-box">
+                    <label class="input-field-label">OUTPUT DIRECTORY TARGET PATH</label>
+                    <div class="path-input-row">
+                        <input type="text" id="modalPathInput" readonly placeholder="C:\Users\..." />
+                        <button class="btn-browse-action" onclick="triggerNativeFolderBrowse()">
+                            <img src="Assets/Container.svg" class="btn-browse-icon"> <span>BROWSE</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="settings-actions-footer">
+                    <button class="btn-cancel-link" onclick="closeSettingsOverlayPanel()">CANCEL</button>
+                    <button class="btn-save-submit" onclick="submitSavedSettingsConfig()">SAVE SETTINGS</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+            <div id="aboutModal" class="about-modal-backdrop" style="display: none;">
+                <div class="about-modal-container">
+                    <h2 class="about-title">ABOUT THE DEVELOPER</h2>
+                    <p class="about-subtitle">DOCUMENTATION V1.0.2 // BUILD 012</p>
+                    <div class="card-container">
+                    <div class="about-body">
+                        <p class="hello">✨ HELLO! I AM KCHARLES</p>
+                        <p>I am the creator of Heisenberg 2.0, a project that began with a simple mission: to help my church present song lyrics seamlessly. What started as a simple functional pyhton automation has since evolved into a sophisticated tool that leverages modern Python and web technologies to make content generation effortless and intuitive. My vision is to streamline the creation of structured presentations through software designed with the user in mind. I am actively developing the app, so stay tuned for exciting new features!</p>
+                        
+                        <a href="https://github.com/kcharles5800" target="_blank" class="about-link"><span class="about-link-title">For more details and updates, check out my GitHub Profile: </span> <br> https://github.com/kcharles5800</a>
+                    </div>
+
+                    <button class="close-link" onclick="toggleAboutModal(false)">CLOSE</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    // 1. Initialize the bridge properly
+    window.backend = null;
+
+    new QWebChannel(qt.webChannelTransport, function (channel) {
+        window.backend = channel.objects.py_backend;
+
+        window.backend.get_initial_path(function(savedPath) {
+            window.updateTargetPathDisplay(savedPath);
+        });
+    });
+
+    // 2. Focused Enter Key Listener
+    document.getElementById("songNameInput").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            triggerAutomation(); // Updated: call the actual function name
+        }
+    });
+
+    // --- Modal Controls ---
+    window.openSettingsPanel = function() {
+        document.getElementById("settingsModalOverlay").style.display = "flex";
+        if (window.backend) window.backend.open_settings_window();
+    };
+
+    window.closeSettingsOverlayPanel = function() {
+        document.getElementById("settingsModalOverlay").style.display = "none";
+    };
+
+    window.toggleAboutModal = function(show) {
+        document.getElementById("aboutModal").style.display = show ? "flex" : "none";
+    };
+
+    window.updateTargetPathDisplay = function(savedPath) {
+        document.getElementById("modalPathInput").value = savedPath;
+    };
+
+    // --- Backend Actions ---
+    function triggerNativeFolderBrowse() {
+        if (window.backend) window.backend.trigger_folder_picker();
+    }
+
+    function submitSavedSettingsConfig() {
+        const customPath = document.getElementById("modalPathInput").value.trim();
+        if (window.backend && customPath) {
+            window.backend.save_custom_path_direct(customPath);
+        }
+        window.closeSettingsOverlayPanel();
+    }
+
+    function triggerAutomation() {
+        const inputField = document.getElementById("songNameInput");
+        const statusLabel = document.getElementById("statusLabel");
+        const btn = document.getElementById("generateBtn");
+        const songName = inputField.value.trim();
+
+        if (!songName) {
+            statusLabel.innerText = "• ENTER A SONG NAME FIRST";
+            statusLabel.className = "status-warning";
+            return;
+        }
+
+        statusLabel.innerText = "• PROCESSING...";
+        statusLabel.className = "status-processing";
+        btn.disabled = true;
+
+        if (window.backend) {
+            window.backend.generate_lyrics(songName);
+        } else {
+            statusLabel.innerText = "• ENGINE ERROR: DISCONNECTED";
+            statusLabel.className = "status-error";
+            btn.disabled = false;
+        }
+    }
+
+    window.handleBackendResponse = function(result) {
+        const statusLabel = document.getElementById("statusLabel");
+        const btn = document.getElementById("generateBtn");
+        btn.disabled = false;
+        statusLabel.innerText = `• ${result}`;
+        if (result.startsWith("Success")) {
+            statusLabel.className = "status-success";
+            document.getElementById("songNameInput").value = "";
+        } else {
+            statusLabel.className = "status-error";
+        }
+    };
+</script>
+</html>
